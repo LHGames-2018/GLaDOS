@@ -83,7 +83,10 @@ namespace LHGames.Navigation.Pathfinding
                     }
 
                     neighbour.GScore = tentativeGScore;
-                    subPaths.Add(neighbour, node);
+                    if (!subPaths.ContainsKey(neighbour))
+                    {
+                        subPaths.Add(neighbour, node);
+                    }
                     openSet.Add(neighbour);
                 }
             }
