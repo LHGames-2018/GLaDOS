@@ -20,7 +20,7 @@ namespace LHGames.Bot.Behaviours
             {
                 Setup();
             }
-            return _executer.PlayerInfo.Position == _executer.PlayerInfo.HouseLocation && _executer.PlayerInfo.TotalResources >= _costs[_executer.PlayerInfo.GetUpgradeLevel(_upgradeList.Peek())];
+            return _executer.PlayerInfo.Position == _executer.PlayerInfo.HouseLocation && _upgradeList.Count > 0 && _executer.PlayerInfo.TotalResources >= _costs[_executer.PlayerInfo.GetUpgradeLevel(_upgradeList.Peek())];
         }
 
         public override string Execute()
@@ -31,10 +31,6 @@ namespace LHGames.Bot.Behaviours
         private void Setup()
         {
             var upgraded = new Dictionary<UpgradeType, int>();
-            upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
-            upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
-            upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
-            upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
             upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
             upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
             upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
