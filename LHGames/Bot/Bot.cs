@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LHGames.Helper;
+using LHGames.Navigation;
 using LHGames.Bot.Behaviours;
 
 namespace LHGames.Bot
@@ -8,6 +9,7 @@ namespace LHGames.Bot
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
+        private MyMap _map = new MyMap();
         private BehaviourExecuter _behaviourExecuter;
 
         internal Bot()
@@ -32,9 +34,8 @@ namespace LHGames.Bot
         /// <returns>The action you wish to execute.</returns>
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
-            // TODO update map
-
-            return _behaviourExecuter.GetNextAction(map, PlayerInfo);
+            _map.MergeMap(map);
+            return _behaviourExecuter.GetNextAction(_map, PlayerInfo);
         }
 
         /// <summary>
