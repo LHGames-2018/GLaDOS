@@ -8,6 +8,7 @@ namespace LHGames.Bot
     {
         internal IPlayer PlayerInfo { get; set; }
         private int _currentDirection = 1;
+        private bool isGoingHome = false;
 
         internal Bot() { }
 
@@ -29,18 +30,24 @@ namespace LHGames.Bot
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
             // TODO: Implement your AI here.
+            if (map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y) == TileContent.House)
+            {
+                isGoingHome = false;
+            }
+            else if (PlayerInfo.CarriedResources == PlayerInfo.CarryingCapacity)
+            {
+                isGoingHome = true;
+            }
             if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Resource)
             {
                 return AIHelper.CreateCollectAction(new Point(1, 0));
             }
-            else if (map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y) != TileContent.House)
-            {
-                return AIHelper.CreateMoveAction(new Point(-1, 0));
-            }
             else
             {
-                return AIHelper.CreateMoveAction(new Point(1, 0));
+                int direction = isGoingHome ? -1 : 1;
+                return AIHelper.CreateMoveAction(new Point(direction, 0));
             }
+
         }
 
         /// <summary>
