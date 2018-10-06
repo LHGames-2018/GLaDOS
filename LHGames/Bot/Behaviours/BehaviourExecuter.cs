@@ -30,13 +30,9 @@ namespace LHGames.Bot.Behaviours
             {
                 if (_behaviours[i].Evaluate())
                 {
-                    if (_behaviours[i] == _currentBehaviours)
+                    if (_behaviours[i] != _currentBehaviours)
                     {
                         _currentBehaviours?.StateOut();
-                        _currentBehaviours = null;
-                    }
-                    else
-                    {
                         _currentBehaviours = _behaviours[i];
                         _currentBehaviours.StateIn();
                     }
