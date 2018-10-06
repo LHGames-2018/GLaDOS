@@ -26,7 +26,7 @@ namespace LHGames.Bot.Behaviours
             {
                 // Go home you're ~drunk~ full
                 var returnHomePath = _executer.Map.PathBetween(playerPos, _executer.PlayerInfo.HouseLocation);
-                return AIHelper.CreateMoveAction(returnHomePath[1].Tile.Position - playerPos);
+                return MoveTo(returnHomePath[1].Tile.Position - playerPos);
             }
             else
             {
@@ -39,10 +39,24 @@ namespace LHGames.Bot.Behaviours
                 else
                 {
                     // Go to mine
-                    var closestMine = _executer.Map.GetClosestTileOfType(TileContent.Resource, playerPos);
-                    var minePath = _executer.Map.ShortestPathNextTo(closestMine.Position, playerPos);
-                    return AIHelper.CreateMoveAction(minePath[1].Tile.Position - playerPos);
+                    var resource = _executer.Map.GetClosestTileOfType(TileContent.Resource, playerPos);
+                    var minePath = _executer.Map.ShortestPathNextTo(resource.Position, playerPos);
+                    
+                    return MoveTo(minePath[1].Tile.Position - playerPos);
                 }
+            }
+        }
+
+        private string MoveTo(Point direction)
+        {
+            var tileToGo = _executer.Map.TileAt(direction + _executer.PlayerInfo.Position);
+            if (tileToGo.TileType == TileContent.Wall)
+            {
+                return AIHelper.CreateMeleeAttackAction(direction);
+            }
+            else
+            {
+                return AIHelper.CreateMoveAction(direction);
             }
         }
     }
