@@ -1,16 +1,19 @@
+using System;
+using LHGames.Helper;
+
 namespace LHGames.Bot.Behaviours
 {
     public class MiningBehaviour : Behaviour
     {
-
         public override bool Evaluate()
         {
-            return false;
+            return true;
         }
 
         public override string Execute()
         {
-            return null;
+            Console.WriteLine("Mining!");
+            return AIHelper.CreateMoveAction(new Point(0, 1));
         }
     }
 }

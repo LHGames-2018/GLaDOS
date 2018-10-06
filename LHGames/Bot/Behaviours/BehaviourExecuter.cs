@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using LHGames.Helper;
 
 namespace LHGames.Bot.Behaviours
 {
@@ -16,27 +17,28 @@ namespace LHGames.Bot.Behaviours
 
         public string GetNextAction()
         {
+            string action = null;
             for (int i = 0; i < _behaviours.Count; i++)
             {
                 if (_behaviours[i].Evaluate())
                 {
-                    if (_behaviours[i] == _currentBehaviours)
+                    if (_behaviours[i] != _currentBehaviours)
                     {
-                        if (_currentBehaviours.Execute() == null)
-                        {
-                            _currentBehaviours.StateOut();
-                            _currentBehaviours = null;
-                        }
-                        break;
+                        _currentBehaviours?.StateOut();
+                        _currentBehaviours = null;
+                    }
+                    else
+                    {
+                        _currentBehaviours = _behaviours[i];
+                        _currentBehaviours.StateIn();
                     }
 
-                    _currentBehaviours?.StateOut();
-                    _currentBehaviours = _behaviours[i];
-                    _currentBehaviours.StateIn();
-                    _currentBehaviours.Execute();
+                    action = _currentBehaviours.Execute();
+                    break;
                 }
             }
-            return null;
+
+            return action ?? AIHelper.CreateEmptyAction();
         }
     }
 }
