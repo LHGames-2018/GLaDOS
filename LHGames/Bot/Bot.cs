@@ -34,7 +34,8 @@ namespace LHGames.Bot
             {
                 isGoingHome = false;
             }
-            else if (PlayerInfo.CarriedResources == PlayerInfo.CarryingCapacity)
+            else if (PlayerInfo.CarriedResources == PlayerInfo.CarryingCapacity ||
+                map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Wall)
             {
                 isGoingHome = true;
             }
