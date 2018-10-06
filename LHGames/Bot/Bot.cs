@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LHGames.Helper;
+using LHGames.Navigation;
 
 namespace LHGames.Bot
 {
@@ -8,7 +9,8 @@ namespace LHGames.Bot
     {
         internal IPlayer PlayerInfo { get; set; }
         private int _currentDirection = 1;
-
+        private MyMap _map = new MyMap();
+        
         internal Bot() { }
 
         /// <summary>
