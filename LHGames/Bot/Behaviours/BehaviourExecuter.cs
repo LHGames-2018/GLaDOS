@@ -13,8 +13,9 @@ namespace LHGames.Bot.Behaviours
         internal Map Map => _map;
         internal IPlayer PlayerInfo => _playerInfo;
 
-        public BehaviourExecuter(/*LA MAP*/)
+        public BehaviourExecuter(IPlayer playerInfo)
         {
+            _playerInfo = playerInfo;
             _behaviours.Add(new UpgradeBehaviour(this));
             _behaviours.Add(new MiningBehaviour(this));
             _behaviours.Add(new ExploreBehaviour(this));

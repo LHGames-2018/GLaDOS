@@ -12,7 +12,7 @@ namespace LHGames.Bot
 
         internal Bot()
         {
-            _behaviourExecuter = new BehaviourExecuter();
+            _behaviourExecuter = new BehaviourExecuter(PlayerInfo);
         }
 
         /// <summary>
