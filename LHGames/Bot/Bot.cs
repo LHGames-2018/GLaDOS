@@ -9,7 +9,7 @@ namespace LHGames.Bot
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
-        private MyMap _map = new MyMap();
+        private MyMap _map;
         private BehaviourExecuter _behaviourExecuter;
 
         internal Bot()
@@ -34,7 +34,15 @@ namespace LHGames.Bot
         /// <returns>The action you wish to execute.</returns>
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
+            if(_map == null) {
+                _map = StorageHelper.Read<MyMap>("MyMap");
+                if(_map == null) {
+                    _map = new MyMap();
+                }
+            }
             _map.MergeMap(map);
+            StorageHelper.Write("MyMap", _map);
+
             return _behaviourExecuter.GetNextAction(_map, PlayerInfo);
         }
 
