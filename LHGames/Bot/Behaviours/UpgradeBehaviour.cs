@@ -4,7 +4,8 @@ namespace LHGames.Bot.Behaviours
 {
     public class UpgradeBehaviour : Behaviour
     {
-        private bool _uselessState = false;
+        public UpgradeBehaviour(BehaviourExecuter executer) : base(executer) {}
+
         public override bool Evaluate()
         {
             return false;

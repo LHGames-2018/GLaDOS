@@ -7,16 +7,24 @@ namespace LHGames.Bot.Behaviours
     {
         private List<Behaviour> _behaviours = new List<Behaviour>();
         private Behaviour _currentBehaviours;
+        private Map _map;
+        private IPlayer _playerInfo;
+
+        internal Map Map => _map;
+        internal IPlayer PlayerInfo => _playerInfo;
 
         public BehaviourExecuter(/*LA MAP*/)
         {
-            _behaviours.Add(new UpgradeBehaviour());
-            _behaviours.Add(new MiningBehaviour());
-            _behaviours.Add(new ExploreBehaviour());
+            _behaviours.Add(new UpgradeBehaviour(this));
+            _behaviours.Add(new MiningBehaviour(this));
+            _behaviours.Add(new ExploreBehaviour(this));
         }
 
-        public string GetNextAction()
+        internal string GetNextAction(Map map, IPlayer PlayerInfo)
         {
+            _map = map;
+            _playerInfo = PlayerInfo;
+
             string action = null;
             for (int i = 0; i < _behaviours.Count; i++)
             {

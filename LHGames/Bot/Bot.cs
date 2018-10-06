@@ -8,8 +8,6 @@ namespace LHGames.Bot
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
-
-        private int _currentDirection = 1;
         private BehaviourExecuter _behaviourExecuter;
 
         internal Bot()
@@ -36,7 +34,7 @@ namespace LHGames.Bot
         {
             // TODO update map
 
-            return _behaviourExecuter.GetNextAction();
+            return _behaviourExecuter.GetNextAction(map, PlayerInfo);
         }
 
         /// <summary>

@@ -5,6 +5,8 @@ namespace LHGames.Bot.Behaviours
 {
     public class MiningBehaviour : Behaviour
     {
+        public MiningBehaviour(BehaviourExecuter executer) : base(executer) {}
+
         public override bool Evaluate()
         {
             return true;

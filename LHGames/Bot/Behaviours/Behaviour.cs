@@ -2,10 +2,11 @@ namespace LHGames.Bot.Behaviours
 {
     public abstract class Behaviour
     {
-        // protected Map _map;
-        public Behaviour(/*Map map*/)
+        protected BehaviourExecuter _executer;
+
+        public Behaviour(BehaviourExecuter executer)
         {
-            // _map = map;
+            _executer = executer;
         }
 
         public abstract bool Evaluate();
