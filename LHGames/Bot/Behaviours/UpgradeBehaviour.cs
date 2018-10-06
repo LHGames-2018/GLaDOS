@@ -39,16 +39,11 @@ namespace LHGames.Bot.Behaviours
 
         public override bool Evaluate()
         {
-            return _executer.PlayerInfo.TotalResources >= _costs[_executer.PlayerInfo.GetUpgradeLevel(_upgradeList.Peek())];
+            return _executer.PlayerInfo.Position == _executer.PlayerInfo.HouseLocation && _executer.PlayerInfo.TotalResources >= _costs[_executer.PlayerInfo.GetUpgradeLevel(_upgradeList.Peek())];
         }
 
         public override string Execute()
         {
-            if (_executer.PlayerInfo.HouseLocation != _executer.PlayerInfo.Position)
-            {
-                //return MoveToHome();
-            }
-
             return AIHelper.CreateUpgradeAction(_upgradeList.Pop());
         }
     }
