@@ -60,7 +60,7 @@ namespace LHGames.Bot.Behaviours
             var closest = _mines[0];
             for (int i = 0; i < _mines.Count; i++)
             {
-                if ( Math.Abs(_mines[i].X - _executer.PlayerInfo.Position.X) + Math.Abs(_mines[i].Y - _executer.PlayerInfo.Position.Y) <  Math.Abs(closest.X - _executer.PlayerInfo.Position.X) + Math.Abs(closest.Y - _executer.PlayerInfo.Position.Y))
+                if ( Math.Abs(_mines[i].X - _executer.PlayerInfo.HouseLocation.X) + Math.Abs(_mines[i].Y - _executer.HouseLocation.Position.Y) <  Math.Abs(closest.X - _executer.PlayerInfo.Position.X) + Math.Abs(closest.Y - _executer.PlayerInfo.Position.Y))
                 {
                     closest = _mines[i];
                 }
