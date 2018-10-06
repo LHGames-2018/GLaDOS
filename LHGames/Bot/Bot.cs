@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using LHGames.Helper;
+using LHGames.Bot.Behaviours;
 
 namespace LHGames.Bot
 {
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
-        private int _currentDirection = 1;
-        private bool isGoingHome = false;
+        private BehaviourExecuter _behaviourExecuter;
 
-        internal Bot() { }
+        internal Bot()
+        {
+            _behaviourExecuter = new BehaviourExecuter();
+        }
 
         /// <summary>
         /// Gets called before ExecuteTurn. This is where you get your bot's state.
@@ -29,34 +32,9 @@ namespace LHGames.Bot
         /// <returns>The action you wish to execute.</returns>
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
-            // TODO: Implement your AI here.
-            if (map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y) == TileContent.House)
-            {
-                isGoingHome = false;
-            }
-            else if (PlayerInfo.CarriedResources == PlayerInfo.CarryingCapacity ||
-                map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Wall)
-            {
-                isGoingHome = true;
-            }
-            if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Resource)
-            {
-                return AIHelper.CreateCollectAction(new Point(1, 0));
-            }
-            else if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y + 1) == TileContent.Resource)
-            {
-                return AIHelper.CreateCollectAction(new Point(0, 1));
-            }
-            else if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y - 1) == TileContent.Resource)
-            {
-                return AIHelper.CreateCollectAction(new Point(0, -1));
-            }
-            else
-            {
-                int direction = isGoingHome ? -1 : 1;
-                return AIHelper.CreateMoveAction(new Point(direction, 0));
-            }
+            // TODO update map
 
+            return _behaviourExecuter.GetNextAction(map, PlayerInfo);
         }
 
         /// <summary>
