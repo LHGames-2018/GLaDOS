@@ -40,11 +40,7 @@ namespace LHGames.Bot.Behaviours
                 {
                     // Go to mine
                     var closestMine = _executer.Map.GetClosestTileOfType(TileContent.Resource, playerPos);
-
-                    var minePath = _executer.Map.ShortestPathNextTo(playerPos, closestMine.Position);
-                    
-//                    var minePath = _executer.Map.PathBetween(playerPos, closestMine.Position - new Point(1 , 0));
-                    
+                    var minePath = _executer.Map.ShortestPathNextTo(closestMine.Position, playerPos);
                     return AIHelper.CreateMoveAction(minePath[1].Tile.Position - playerPos);
                 }
             }

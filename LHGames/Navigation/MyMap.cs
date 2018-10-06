@@ -58,8 +58,12 @@ namespace LHGames.Navigation
 
         public List<Node> ShortestPathNextTo(Point pos, Point origin)
         {
-            var paths = new List<List<Node>>(4);               
-            paths.AddRange(NavUtils.ForEachAdjacentTile(pos).Select(point => _aStar.FindShortestPath(origin, point)));
+            var paths = new List<List<Node>>(4);            
+            foreach (var point in NavUtils.ForEachAdjacentTile(pos))
+            {
+                _aStar = new AStar(_graph);
+                paths.Add(_aStar.FindShortestPath(origin, point));
+            }
             paths.RemoveAll(path => path == null);
             paths = paths.OrderBy(path => path.Count).ToList();
             return paths.FirstOrDefault();
