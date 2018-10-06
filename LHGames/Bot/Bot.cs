@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using LHGames.Helper;
+using LHGames.Bot.Behaviours;
 
 namespace LHGames.Bot
 {
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
-        private int _currentDirection = 1;
+        private BehaviourExecuter _behaviourExecuter;
 
-        internal Bot() { }
+        internal Bot()
+        {
+            _behaviourExecuter = new BehaviourExecuter();
+        }
 
         /// <summary>
         /// Gets called before ExecuteTurn. This is where you get your bot's state.
@@ -28,15 +32,9 @@ namespace LHGames.Bot
         /// <returns>The action you wish to execute.</returns>
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
-            // TODO: Implement your AI here.
-            if (map.GetTileAt(PlayerInfo.Position.X + _currentDirection, PlayerInfo.Position.Y) == TileContent.Wall)
-            {
-                _currentDirection *= -1;
-            }
+            // TODO update map
 
-            var data = StorageHelper.Read<TestClass>("Test");
-            Console.WriteLine(data?.Test);
-            return AIHelper.CreateMoveAction(new Point(_currentDirection, 0));
+            return _behaviourExecuter.GetNextAction(map, PlayerInfo);
         }
 
         /// <summary>
