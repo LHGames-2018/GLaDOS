@@ -36,7 +36,7 @@ namespace LHGames.Bot.Behaviours
             var house = _executer.PlayerInfo.HouseLocation;
             var pos = _executer.PlayerInfo.Position;
 
-            var dir = pos - house;
+            var dir = house - pos;
             var point = Math.Abs(dir.X) > Math.Abs(dir.Y) ? new Point(Math.Sign(dir.X), 0) : new Point(0, Math.Sign(dir.Y));
             return AIHelper.CreateMoveAction(point);
         }
