@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using LHGames.Helper;
+using LHGames.Navigation;
 
 namespace LHGames.Bot.Behaviours
 {
@@ -7,10 +8,10 @@ namespace LHGames.Bot.Behaviours
     {
         private List<Behaviour> _behaviours = new List<Behaviour>();
         private Behaviour _currentBehaviours;
-        private Map _map;
+        private MyMap _map;
         private IPlayer _playerInfo;
 
-        internal Map Map => _map;
+        internal MyMap Map => _map;
         internal IPlayer PlayerInfo => _playerInfo;
 
         public BehaviourExecuter(/*LA MAP*/)
@@ -20,7 +21,7 @@ namespace LHGames.Bot.Behaviours
             _behaviours.Add(new ExploreBehaviour(this));
         }
 
-        internal string GetNextAction(Map map, IPlayer PlayerInfo)
+        internal string GetNextAction(MyMap map, IPlayer PlayerInfo)
         {
             _map = map;
             _playerInfo = PlayerInfo;

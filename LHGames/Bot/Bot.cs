@@ -9,7 +9,6 @@ namespace LHGames.Bot
     internal class Bot
     {
         internal IPlayer PlayerInfo { get; set; }
-        private int _currentDirection = 1;
         private MyMap _map = new MyMap();
         private BehaviourExecuter _behaviourExecuter;
 
@@ -35,9 +34,8 @@ namespace LHGames.Bot
         /// <returns>The action you wish to execute.</returns>
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
-            // TODO update map
-
-            return _behaviourExecuter.GetNextAction(map, PlayerInfo);
+            _map.MergeMap(map);
+            return _behaviourExecuter.GetNextAction(_map, PlayerInfo);
         }
 
         /// <summary>

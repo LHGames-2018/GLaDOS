@@ -1,13 +1,18 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using LHGames.Helper;
+using LHGames.Navigation;
+using LHGames.Navigation.Pathfinding;
 
 namespace LHGames.Bot.Behaviours
 {
     public class MiningBehaviour : Behaviour
     {
-        public MiningBehaviour(BehaviourExecuter executer) : base(executer) { }
 
-        private bool isGoingHome = false;
+        public MiningBehaviour(BehaviourExecuter executer) : base(executer)
+        {
+        }
 
         public override bool Evaluate()
         {
@@ -16,23 +21,32 @@ namespace LHGames.Bot.Behaviours
 
         public override string Execute()
         {
-            if (_executer.Map.GetTileAt(_executer.PlayerInfo.Position.X, _executer.PlayerInfo.Position.Y) == TileContent.House)
+            var playerPos = _executer.PlayerInfo.Position;
+            if (_executer.PlayerInfo.CarriedResources >= _executer.PlayerInfo.CarryingCapacity)
             {
-                isGoingHome = false;
-            }
-            else if (_executer.PlayerInfo.CarriedResources == _executer.PlayerInfo.CarryingCapacity ||
-                _executer.Map.GetTileAt(_executer.PlayerInfo.Position.X + 1, _executer.PlayerInfo.Position.Y) == TileContent.Wall)
-            {
-                isGoingHome = true;
-            }
-            if (_executer.PlayerInfo.CarriedResources < _executer.PlayerInfo.CarryingCapacity && _executer.Map.GetTileAt(_executer.PlayerInfo.Position.X + 1, _executer.PlayerInfo.Position.Y) == TileContent.Resource)
-            {
-                return AIHelper.CreateCollectAction(new Point(1, 0));
+                // Go home you're ~drunk~ full
+                var returnHomePath = _executer.Map.PathBetween(playerPos, _executer.PlayerInfo.HouseLocation);
+                return AIHelper.CreateMoveAction(returnHomePath[1].Tile.Position - playerPos);
             }
             else
             {
-                int direction = isGoingHome ? -1 : 1;
-                return AIHelper.CreateMoveAction(new Point(direction, 0));
+                var adjacentMine = _executer.Map.HasTileOfTypeAdjacentTo(TileContent.Resource, playerPos);
+                if (adjacentMine != null)
+                {
+                    // if we're next to a mine, mine
+                    return AIHelper.CreateCollectAction(adjacentMine.Position - playerPos);
+                }
+                else
+                {
+                    // Go to mine
+                    var closestMine = _executer.Map.GetClosestTileOfType(TileContent.Resource, playerPos);
+
+                    var minePath = _executer.Map.ShortestPathNextTo(playerPos, closestMine.Position);
+                    
+//                    var minePath = _executer.Map.PathBetween(playerPos, closestMine.Position - new Point(1 , 0));
+                    
+                    return AIHelper.CreateMoveAction(minePath[1].Tile.Position - playerPos);
+                }
             }
         }
     }

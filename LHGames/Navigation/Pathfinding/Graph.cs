@@ -24,7 +24,7 @@ namespace LHGames.Navigation.Pathfinding
             {
                 var newNode = new Node(tile);
                 _nodes[pos] = newNode;
-                foreach (var adjacent in NavUtils.ForEachAdjacentTile(tile))
+                foreach (var adjacent in NavUtils.ForEachAdjacentTile(tile.Position))
                 {
                     // Do not add if non-existant
                     if (!_nodes.ContainsKey(adjacent))

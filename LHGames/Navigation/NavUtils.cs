@@ -4,15 +4,15 @@ using LHGames.Helper;
 namespace LHGames.Navigation
 {
     public class NavUtils
-    {
-        public static IEnumerable<Point> ForEachAdjacentTile(Tile origin)
+    {        
+        public static IEnumerable<Point> ForEachAdjacentTile(Point origin)
         {
             return new List<Point>()
             {
-                new Point(origin.Position.X + 1, origin.Position.Y),
-                new Point(origin.Position.X - 1, origin.Position.Y),
-                new Point(origin.Position.X, origin.Position.Y + 1),
-                new Point(origin.Position.X, origin.Position.Y - 1),
+                new Point(origin.X + 1, origin.Y),
+                new Point(origin.X - 1, origin.Y),
+                new Point(origin.X, origin.Y + 1),
+                new Point(origin.X, origin.Y - 1),
             };
         } 
     }

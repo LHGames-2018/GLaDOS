@@ -28,27 +28,41 @@ namespace LHGames.Navigation
             return _aStar.FindShortestPath(start, end);
         }
 
-        public Point GetClosestTileOfType(TileContent tileType, Point origin)
+        public Tile GetClosestTileOfType(TileContent tileType, Point origin)
         {
-            var distanceMin = Int32.MaxValue;
-            Point point = null;
-            foreach (var tile in GetAllTilesOfType(tileType))
+            var distanceMin = int.MaxValue;
+            Tile tile = null;
+            foreach (var t in GetAllTilesOfType(tileType))
             {
-                var delta = tile.Position - origin;
-                var distance = Math.Abs(delta.X) + Math.Abs(delta.Y);
+                var path = ShortestPathNextTo(origin, t.Position);
+                var distance = path?.Count ?? int.MaxValue;
                 if (distanceMin > distance)
                 {
                     distanceMin = distance;
-                    point = tile.Position;
+                    tile = t;
                 }
             }
 
-            return point;
+            return tile;
         }
         
         public List<Tile> GetAllTilesOfType(TileContent tileType)
         {
             return _graph.Nodes.Select(n => n.Tile).Where(t => t.TileType == tileType).ToList();
+        }
+
+        public Tile HasTileOfTypeAdjacentTo(TileContent tileContent, Point pos)
+        {
+            return NavUtils.ForEachAdjacentTile(pos).Select(point => _graph.NodeAt(point).Tile).FirstOrDefault(tileAt => tileAt.TileType == tileContent);
+        }
+
+        public List<Node> ShortestPathNextTo(Point pos, Point origin)
+        {
+            var paths = new List<List<Node>>(4);               
+            paths.AddRange(NavUtils.ForEachAdjacentTile(pos).Select(point => _aStar.FindShortestPath(origin, point)));
+            paths.RemoveAll(path => path == null);
+            paths = paths.OrderBy(path => path.Count).ToList();
+            return paths.FirstOrDefault();
         }
     }
 }
