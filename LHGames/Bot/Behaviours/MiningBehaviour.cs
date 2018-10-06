@@ -26,7 +26,16 @@ namespace LHGames.Bot.Behaviours
             {
                 // Go home you're ~drunk~ full
                 var returnHomePath = _executer.Map.PathBetween(playerPos, _executer.PlayerInfo.HouseLocation);
-                return MoveTo(returnHomePath[1].Tile.Position - playerPos);
+                if (returnHomePath == null)
+                {
+                    var deltaX = Math.Sign(_executer.PlayerInfo.HouseLocation.X - playerPos.X);
+                    var deltaY = deltaX == 0 ? Math.Sign(_executer.PlayerInfo.HouseLocation.Y - playerPos.Y) : 0;
+                    return MoveTo(new Point(deltaX, deltaY));
+                }
+                else
+                {
+                    return MoveTo(returnHomePath[1].Tile.Position - playerPos);
+                }
             }
             else
             {
