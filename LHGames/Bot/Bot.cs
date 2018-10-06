@@ -39,9 +39,17 @@ namespace LHGames.Bot
             {
                 isGoingHome = true;
             }
-            if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X +1, PlayerInfo.Position.Y) == TileContent.Resource)
+            if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Resource)
             {
                 return AIHelper.CreateCollectAction(new Point(1, 0));
+            }
+            else if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y + 1) == TileContent.Resource)
+            {
+                return AIHelper.CreateCollectAction(new Point(0, 1));
+            }
+            else if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y - 1) == TileContent.Resource)
+            {
+                return AIHelper.CreateCollectAction(new Point(0, -1));
             }
             else
             {
