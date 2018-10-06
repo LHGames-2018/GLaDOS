@@ -13,7 +13,7 @@ namespace LHGames.Navigation.Pathfinding
 
         public virtual double HeuristicToNode(Node n)
         {
-            return 0; //TODO
+            return Point.DistanceSquared(Tile.Position, n.Tile.Position);
         }
 
         public override string ToString()
