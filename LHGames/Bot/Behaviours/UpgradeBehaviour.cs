@@ -31,11 +31,14 @@ namespace LHGames.Bot.Behaviours
         private void Setup()
         {
             var upgraded = new Dictionary<UpgradeType, int>();
-            upgraded.Add(UpgradeType.AttackPower, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.AttackPower));
             upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
             upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
-            upgraded.Add(UpgradeType.Defence, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.Defence));
-            upgraded.Add(UpgradeType.MaximumHealth, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.MaximumHealth));
+            upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
+            upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
+            upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
+            upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
+            upgraded.Add(UpgradeType.CarryingCapacity, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CarryingCapacity));
+            upgraded.Add(UpgradeType.CollectingSpeed, _executer.PlayerInfo.GetUpgradeLevel(UpgradeType.CollectingSpeed));
 
             _upgradeList.Push(UpgradeType.CarryingCapacity);
             _upgradeList.Push(UpgradeType.CollectingSpeed);
