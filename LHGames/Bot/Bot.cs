@@ -35,20 +35,8 @@ namespace LHGames.Bot
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
             // TODO update map
-            var nextAction = _behaviourExecuter.GetNextAction();
-            if (nextAction != null)
-            {
-                return nextAction;
-            }
 
-            if (map.GetTileAt(PlayerInfo.Position.X + _currentDirection, PlayerInfo.Position.Y) == TileContent.Wall)
-            {
-                _currentDirection *= -1;
-            }
-
-            var data = StorageHelper.Read<TestClass>("Test");
-            Console.WriteLine(data?.Test);
-            return AIHelper.CreateMoveAction(new Point(_currentDirection, 0));
+            return _behaviourExecuter.GetNextAction();
         }
 
         /// <summary>

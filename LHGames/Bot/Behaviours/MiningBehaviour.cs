@@ -12,8 +12,7 @@ namespace LHGames.Bot.Behaviours
 
         public override string Execute()
         {
-            Console.WriteLine("Mining!");
-            return AIHelper.CreateMoveAction(new Point(0, 1));
+            return AIHelper.CreateEmptyAction();
         }
     }
 }

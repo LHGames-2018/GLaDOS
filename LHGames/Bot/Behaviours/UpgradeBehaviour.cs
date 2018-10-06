@@ -7,13 +7,11 @@ namespace LHGames.Bot.Behaviours
         private bool _uselessState = false;
         public override bool Evaluate()
         {
-            _uselessState = !_uselessState;
-            return _uselessState;
+            return false;
         }
 
         public override string Execute()
         {
-            Console.WriteLine("Upgrade");
             return null;
         }
     }
