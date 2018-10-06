@@ -12,6 +12,11 @@ namespace LHGames.Bot.Behaviours
         private bool isGoingHome = false;
         private List<Point> _mines = new List<Point>();
 
+        public override void StateIn()
+        {
+            _mines = _executer.Map.GetVisibleTiles().Where(p => p.TileType == TileContent.Resource).Select(p => p.Position).ToList();
+        }
+
         public override bool Evaluate()
         {
             return true;
@@ -19,10 +24,9 @@ namespace LHGames.Bot.Behaviours
 
         public override string Execute()
         {
-            _mines = _executer.Map.GetVisibleTiles().Where(p => p.TileType == TileContent.Resource).Select(p => p.Position).ToList();
-
             if (_executer.PlayerInfo.CarriedResources >= _executer.PlayerInfo.CarryingCapacity)
             {
+                StateIn();
                 return GoHome();
             }
             else
