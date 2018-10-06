@@ -38,6 +38,11 @@ namespace LHGames.Bot.Behaviours
 
             var dir = house - pos;
             var point = Math.Abs(dir.X) > Math.Abs(dir.Y) ? new Point(Math.Sign(dir.X), 0) : new Point(0, Math.Sign(dir.Y));
+            var newPos = _executer.PlayerInfo.Position + point;
+            if (_executer.Map.GetTileAt(newPos.X, newPos.Y) == TileContent.Wall)
+            {
+                return AIHelper.CreateMeleeAttackAction(point);
+            }
             return AIHelper.CreateMoveAction(point);
         }
 
