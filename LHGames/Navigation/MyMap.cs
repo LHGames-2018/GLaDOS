@@ -68,5 +68,10 @@ namespace LHGames.Navigation
             paths = paths.OrderBy(path => path.Count).ToList();
             return paths.FirstOrDefault();
         }
+
+        public Tile TileAt(Point pos)
+        {
+            return _graph.NodeAt(pos).Tile;
+        }
     }
 }

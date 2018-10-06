@@ -38,7 +38,7 @@ namespace LHGames.Navigation.Pathfinding
 
         public Node NodeAt(Point pos)
         {
-            return _nodes[pos];
+            return !_nodes.ContainsKey(pos) ? null : _nodes[pos];
         }
         
         public Edge EdgeBetweenNodes(Node src, Node dst)

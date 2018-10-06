@@ -25,12 +25,14 @@ namespace LHGames.Navigation.Pathfinding
             double weight = 0.0;
             switch (content)
             {
-                case TileContent.Wall:
                 case TileContent.Lava:
                 case TileContent.Resource:
                 case TileContent.Shop:
                 case TileContent.Player:
                     weight = Double.MaxValue;
+                    break;
+                case TileContent.Wall:
+                    weight = 5.0;
                     break;
                 case TileContent.House:
                 case TileContent.Empty:
