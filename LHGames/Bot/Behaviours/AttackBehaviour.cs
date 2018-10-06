@@ -62,6 +62,10 @@ namespace LHGames.Bot.Behaviours
             {
                 return AIHelper.CreateCollectAction(point);
             }
+            if (_executer.Map.GetTileAt(newPos.X, newPos.Y) == TileContent.House)
+            {
+                return AIHelper.CreateMoveAction(new Point(0, 1));
+            }
             return AIHelper.CreateMoveAction(point);
         }
     }
