@@ -41,7 +41,7 @@ namespace LHGames.Bot
             }
             if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X +1, PlayerInfo.Position.Y) == TileContent.Resource)
             {
-                return AIHelper.CreateCollectAction(new Point(0, 1));
+                return AIHelper.CreateCollectAction(new Point(1, 0));
             }
             else
             {
