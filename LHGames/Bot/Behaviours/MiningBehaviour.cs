@@ -12,11 +12,6 @@ namespace LHGames.Bot.Behaviours
         private bool isGoingHome = false;
         private List<Point> _mines = new List<Point>();
 
-        public override void StateIn()
-        {
-            _mines = _executer.Map.GetVisibleTiles().Where(p => p.TileType == TileContent.Resource).Select(p => p.Position).ToList();
-        }
-
         public override bool Evaluate()
         {
             return true;
@@ -24,9 +19,10 @@ namespace LHGames.Bot.Behaviours
 
         public override string Execute()
         {
+            _mines = _executer.Map.GetVisibleTiles().Where(p => p.TileType == TileContent.Resource).Select(p => p.Position).ToList();
+
             if (_executer.PlayerInfo.CarriedResources >= _executer.PlayerInfo.CarryingCapacity)
             {
-                StateIn();
                 return GoHome();
             }
             else
@@ -64,14 +60,20 @@ namespace LHGames.Bot.Behaviours
             var closest = _mines[0];
             for (int i = 0; i < _mines.Count; i++)
             {
-                if ( Math.Abs(_mines[i].X - _executer.PlayerInfo.HouseLocation.X) + Math.Abs(_mines[i].Y - _executer.PlayerInfo.HouseLocation.Y) <  Math.Abs(closest.X - _executer.PlayerInfo.Position.X) + Math.Abs(closest.Y - _executer.PlayerInfo.Position.Y))
+                if (Math.Abs(_mines[i].X - _executer.PlayerInfo.Position.X) + Math.Abs(_mines[i].Y - _executer.PlayerInfo.Position.Y) < Math.Abs(closest.X - _executer.PlayerInfo.Position.X) + Math.Abs(closest.Y - _executer.PlayerInfo.Position.Y))
                 {
                     closest = _mines[i];
                 }
             }
-            
+
             var dir = closest - _executer.PlayerInfo.Position;
             var point = Math.Abs(dir.X) > Math.Abs(dir.Y) ? new Point(Math.Sign(dir.X), 0) : new Point(0, Math.Sign(dir.Y));
+
+            var newPos = _executer.PlayerInfo.Position + point;
+            if (_executer.Map.GetTileAt(newPos.X, newPos.Y) == TileContent.Wall)
+            {
+                return AIHelper.CreateMeleeAttackAction(point);
+            }
             return AIHelper.CreateMoveAction(point);
         }
     }
