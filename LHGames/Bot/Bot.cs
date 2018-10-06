@@ -29,10 +29,19 @@ namespace LHGames.Bot
         internal string ExecuteTurn(Map map, IEnumerable<IPlayer> visiblePlayers)
         {
             // TODO: Implement your AI here.
-            if (map.GetTileAt(PlayerInfo.Position.X + _currentDirection, PlayerInfo.Position.Y) == TileContent.Wall)
+            if (PlayerInfo.CarriedResources < PlayerInfo.CarryingCapacity && map.GetTileAt(PlayerInfo.Position.X + 1, PlayerInfo.Position.Y) == TileContent.Resource)
             {
-                _currentDirection *= -1;
+                return AIHelper.CreateCollectAction(new Point(1, 0));
             }
+            else if (map.GetTileAt(PlayerInfo.Position.X, PlayerInfo.Position.Y) != TileContent.House)
+            {
+                return AIHelper.CreateMoveAction(new Point(-1, 0));
+            }
+            else
+            {
+                return AIHelper.CreateMoveAction(new Point(1, 0));
+            }
+
 
             var data = StorageHelper.Read<TestClass>("Test");
             Console.WriteLine(data?.Test);
