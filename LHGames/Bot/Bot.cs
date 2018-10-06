@@ -41,11 +41,6 @@ namespace LHGames.Bot
             {
                 return AIHelper.CreateMoveAction(new Point(1, 0));
             }
-
-
-            var data = StorageHelper.Read<TestClass>("Test");
-            Console.WriteLine(data?.Test);
-            return AIHelper.CreateMoveAction(new Point(_currentDirection, 0));
         }
 
         /// <summary>
