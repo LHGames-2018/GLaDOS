@@ -40,6 +40,7 @@ namespace LHGames.Bot
                     _map = new MyMap();
                 }
             }
+
             _map.MergeMap(map);
             StorageHelper.Write("MyMap", _map);
 

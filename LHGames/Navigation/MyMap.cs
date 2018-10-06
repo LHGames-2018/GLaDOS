@@ -22,9 +22,7 @@ namespace LHGames.Navigation
 
         public List<Node> PathBetween(Point start, Point end)
         {
-            if (_aStar == null)
-                _aStar = new AStar(_graph);
-
+            _aStar = new AStar(_graph);
             return _aStar.FindShortestPath(start, end);
         }
 
@@ -34,15 +32,13 @@ namespace LHGames.Navigation
             Tile tile = null;
             foreach (var t in GetAllTilesOfType(tileType))
             {
-                var path = ShortestPathNextTo(origin, t.Position);
-                var distance = path?.Count ?? int.MaxValue;
+                var distance = (int)Point.DistanceSquared(origin, t.Position);
                 if (distanceMin > distance)
                 {
                     distanceMin = distance;
                     tile = t;
                 }
             }
-
             return tile;
         }
         
