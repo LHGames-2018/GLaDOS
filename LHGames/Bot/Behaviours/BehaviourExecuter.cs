@@ -33,7 +33,7 @@ namespace LHGames.Bot.Behaviours
                         _currentBehaviours.StateIn();
                     }
 
-                    action = _currentBehaviours.Execute();
+                    action = _currentBehaviours?.Execute();
                     break;
                 }
             }
