@@ -16,6 +16,7 @@ namespace LHGames.Bot.Behaviours
 
         public BehaviourExecuter(/*LA MAP*/)
         {
+            // :(
             // _behaviours.Add(new UpgradeBehaviour(this));
             _behaviours.Add(new MiningBehaviour(this));
             _behaviours.Add(new ExploreBehaviour(this));
